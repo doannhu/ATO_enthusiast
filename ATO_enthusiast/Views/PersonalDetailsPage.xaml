@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ATO_enthusiast.ViewModels"
+             xmlns:m="clr-namespace:ATO_enthusiast.CoreBusiness;assembly=ATO_enthusiast.CoreBusiness"
+             x:DataType="vm:PersonalDetailsViewModel"
+             x:Class="ATO_enthusiast.Views.PersonalDetailsPage"           
+             Title="Personal Details Page">
+    <VerticalStackLayout Spacing="10" Margin="20, 20, 20, 0">
+        <Frame Padding="10, 2, 10, 2">
+            <HorizontalStackLayout>
+                <Label 
+                    Text="Full name"
+                    VerticalOptions="Center" WidthRequest="60"/>
+                <Label 
+                        Text="{Binding PersonalDetails.Name}"
+                        VerticalOptions="Center"
+                        Margin="0,5,0,0"/>
+            </HorizontalStackLayout>
+        </Frame>
+
+        <Frame Padding="10, 2, 10, 2">
+            <HorizontalStackLayout>
+                <Label 
+                    Text="Tax file number"
+                    VerticalOptions="Center" WidthRequest="60"/>
+                <Label 
+                        Text="{Binding PersonalDetails.TFN}"
+                        VerticalOptions="Center"
+                        Margin="0,5,0,0"/>
+            </HorizontalStackLayout>
+        </Frame>
+
+        <Frame Padding="10, 2, 10, 2">
+            <HorizontalStackLayout>
+                <Label 
+                    Text="Date of Birth"
+                    VerticalOptions="Center" WidthRequest="60"/>
+                <Label 
+                        Text="{Binding PersonalDetails.DOB}"
+                        VerticalOptions="Center"
+                        Margin="0,5,0,0"/>
+            </HorizontalStackLayout>
+        </Frame>
+
+        <Frame Padding="10, 2, 10, 2">
+            <HorizontalStackLayout>
+                <Label 
+                    Text="Email"
+                    VerticalOptions="Center" WidthRequest="60"/>
+                <Label 
+                        Text="{Binding PersonalDetails.Email}"
+                        VerticalOptions="Center"
+                        Margin="0,5,0,0"/>
+            </HorizontalStackLayout>
+        </Frame>
+
+        <Frame Padding="10, 2, 10, 2">
+            <HorizontalStackLayout>
+                <Label 
+                    Text="Phone"
+                    VerticalOptions="Center" WidthRequest="60"/>
+                <Label 
+                        Text="{Binding PersonalDetails.Phone}"
+                        VerticalOptions="Center"
+                        Margin="0,5,0,0"/>
+            </HorizontalStackLayout>
+        </Frame>
+
+        <Frame Padding="10, 2, 10, 2">
+            <HorizontalStackLayout>
+                <Label 
+                    Text="Address"
+                    VerticalOptions="Center" WidthRequest="60"/>
+                <Label 
+                        Text="{Binding PersonalDetails.Address}"
+                        VerticalOptions="Center"
+                        Margin="0,5,0,0"/>
+            </HorizontalStackLayout>
+        </Frame>
+
+
+        <Button Text="Edit Personal Details" 
+                Command="{Binding ToEditPersonalDetailsCommand}"
+                CommandParameter="{Binding PersonalDetails.PersonalId}"></Button>
+    </VerticalStackLayout>
+</ContentPage>

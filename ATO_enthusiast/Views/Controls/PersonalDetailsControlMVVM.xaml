@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:vm="clr-namespace:ATO_enthusiast.ViewModels"
+             x:DataType="vm:PersonalDetailsViewModel"
+             x:Class="ATO_enthusiast.Views.Controls.PersonalDetailsControlMVVM">
+    <VerticalStackLayout Spacing="10" Margin="20, 20, 20, 0">
+        <Label Text="Personal Details"></Label>
+
+        <Frame Padding="10, 2, 10, 2" BackgroundColor="#F0F0F0">
+            <VerticalStackLayout>
+                <Label 
+                    Text="Tax File Number (TFN)"
+                    FontAttributes="Bold"/>
+                <Grid ColumnDefinitions="*, Auto">
+                    <Label 
+                        Text="{Binding PersonalDetails.TFN}"
+                        VerticalOptions="Center"
+                        Margin="0,5,0,0"/>
+                    <Label 
+                        Grid.Column="1"
+                        Text="(Read-only)"
+                        FontSize="Micro"
+                        TextColor="Gray"
+                        VerticalOptions="Center"/>
+                </Grid>
+            </VerticalStackLayout>
+        </Frame>
+
+        <Frame Padding="10, 2, 10, 2">
+            <HorizontalStackLayout>
+                <Label Text="Full Name" VerticalOptions="Center" WidthRequest="60"></Label>
+                <Entry VerticalOptions="Center" Text="{Binding PersonalDetails.Name}">
+                    <Entry.Behaviors>
+                        <toolkit:TextValidationBehavior
+                            x:Name="nameValidator"
+                            Flags="ValidateOnAttaching,ValidateOnValueChanged"
+                            MinimumLength="3"
+                            IsValid="{Binding IsNameValidated}"/>
+                    </Entry.Behaviors>
+                </Entry>
+            </HorizontalStackLayout>
+        </Frame>
+
+        <Frame Padding="10, 2, 10, 2">
+            <HorizontalStackLayout>
+                <Label Text="Date of birth" VerticalOptions="Center" WidthRequest="60"></Label>
+                <DatePicker Date="{Binding PersonalDetails.DOB}">
+                    <DatePicker.Behaviors>
+                        <toolkit:EventToCommandBehavior
+                                    EventName="DateSelected"
+                                    Command="{Binding ValidateDateCommand}" />
+                    </DatePicker.Behaviors>
+                </DatePicker>
+            </HorizontalStackLayout>
+        </Frame>
+
+        <Frame Padding="10, 2, 10, 2">
+            <HorizontalStackLayout>
+                <Label Text="Email" VerticalOptions="Center" WidthRequest="60"></Label>
+                <Entry VerticalOptions="Center" Text="{Binding PersonalDetails.Email}">
+                    <Entry.Behaviors>
+                        <toolkit:MultiValidationBehavior 
+                            x:Name="emailValidator"
+                            Flags="ValidateOnAttaching,ValidateOnValueChanged">
+                            <toolkit:TextValidationBehavior                                
+                                Flags="ValidateOnAttaching,ValidateOnValueChanged"
+                                MinimumLength="1"
+                                toolkit:MultiValidationBehavior.Error="Email is required."
+                                IsValid="{Binding IsEmailProvided}"
+                                />
+                            <toolkit:EmailValidationBehavior 
+                                Flags="ValidateOnAttaching,ValidateOnValueChanged" 
+                                toolkit:MultiValidationBehavior.Error="Email format is invalid."
+                                IsValid="{Binding IsEmailFormatValid}"/>
+                        </toolkit:MultiValidationBehavior>
+                    </Entry.Behaviors>
+                </Entry>
+            </HorizontalStackLayout>
+        </Frame>
+
+        <Frame Padding="10, 2, 10, 2">
+            <HorizontalStackLayout>
+                <Label Text="Phone" VerticalOptions="Center" WidthRequest="60"></Label>
+                <Entry VerticalOptions="Center" Text="{Binding PersonalDetails.Phone}"></Entry>
+            </HorizontalStackLayout>
+        </Frame>
+
+        <Frame Padding="10, 2, 10, 2">
+            <HorizontalStackLayout>
+                <Label Text="Address" VerticalOptions="Center" WidthRequest="60"></Label>
+                <Entry VerticalOptions="Center" Text="{Binding PersonalDetails.Address}"></Entry>
+            </HorizontalStackLayout>
+        </Frame>
+
+        <HorizontalStackLayout Spacing="10">
+            <Label 
+                Text="Resident"
+                VerticalOptions="Center" />
+            <Switch 
+                IsToggled="{Binding PersonalDetails.Resident}"
+                OnColor="Green"
+                ThumbColor="White" />
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout Spacing="10">
+            <Label 
+                Text="Working Holiday Maker"
+                VerticalOptions="Center" />
+            <Switch 
+                IsToggled="{Binding PersonalDetails.WorkingHolidayMaker}"
+                OnColor="Green"
+                ThumbColor="White" />
+        </HorizontalStackLayout>
+
+        <Button x:Name="btnSave" Text="Save"></Button>
+        <Button x:Name="btnCancel" Text="Cancel" Command="{Binding ToPersonalDetailsPageCommand}"></Button>
+
+    </VerticalStackLayout>
+</ContentView>
